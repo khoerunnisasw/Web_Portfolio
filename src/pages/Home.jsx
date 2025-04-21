@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../index.css';
 import Navbar from "../components/Navbar";
 import Tilt from 'react-parallax-tilt';
 import { Link } from 'react-router-dom';
 import Footer from "../components/Footer";
-
 
 const heroData = [
   {
@@ -33,7 +32,24 @@ const heroData = [
   }
 ];
 
+const HeroCard = ({ title, items }) => (
+  <Tilt glareEnable={true} glareMaxOpacity={0.3} scale={1.05}>
+    <div className="hero-card">
+      <h2>{title}</h2>
+      <ul className="education-list">
+        {items.map((item, idx) => (
+          <li key={idx}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </Tilt>
+);
+
 const Home = () => {
+  const [showMore, setShowMore] = useState(false);
+
+  const toggleShowMore = () => setShowMore(!showMore);
+
   return (
     <div className="home-container">
       <Navbar />
@@ -47,13 +63,20 @@ const Home = () => {
       <section id="about" className="about">
         <div className="about-content">
           <h2>About Me</h2>
-          <p class="intro-text">
-          I'm <span class="highlight-name">Khoerunnisa Somawijaya</span> but people call me by <span class="highlight-nickname">Khai</span>, 
-          my student ID is <span class="highlight-id">152023096</span>, I am an undergraduate Informatics student at 
-          <span class="highlight-campus">Institut Teknologi Nasional Bandung (ITENAS)</span> who loves learning and creating innovative solutions. 
-          With a passion for IT and design, I aim to build meaningful products that make a difference.
-        </p>
-
+          <p className="intro-text">
+            I'm <span className="highlight-name">Khoerunnisa Somawijaya</span> but people call me by <span className="highlight-nickname">Khai</span>,
+            my student ID is <span className="highlight-id">152023096</span>, I am an undergraduate Informatics student at
+            <span className="highlight-campus"> Institut Teknologi Nasional Bandung (ITENAS)</span> who loves learning and creating innovative solutions.
+            With a passion for IT and design, I aim to build meaningful products that make a difference.
+          </p>
+          {showMore && (
+            <p className="intro-text">
+              In addition to my academic journey, I actively participate in student organizations and enjoy exploring new creative and technical skills outside the classroom.
+            </p>
+          )}
+          <button className="button-style" onClick={toggleShowMore}>
+            {showMore ? 'Show Less' : 'Show More'}
+          </button>
         </div>
         <div className="hero-image">
           <img src="./src/assets/Group 1.png" alt="Your photo" />
@@ -63,16 +86,7 @@ const Home = () => {
       <section className="hero">
         <div className="hero-grid">
           {heroData.map((card, index) => (
-            <Tilt key={index} glareEnable={true} glareMaxOpacity={0.3} scale={1.05}>
-              <div className="hero-card">
-                <h2>{card.title}</h2>
-                <ul className="education-list">
-                  {card.items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </Tilt>
+            <HeroCard key={index} title={card.title} items={card.items} />
           ))}
         </div>
       </section>
@@ -81,12 +95,11 @@ const Home = () => {
         <h2 className="project-header">My Project</h2>
         <div className="single-project-card">
           <div className="project-card-content">
-          <h3>Some of My Projects</h3>
+            <h3>Some of My Projects</h3>
             <p>
               Explore a selection of projects I've worked on — from educational apps to interactive platforms designed to solve real-world problems.
             </p>
             <Link to="/projects" className="button-style">Discover More</Link>
-
           </div>
         </div>
       </section>
@@ -134,9 +147,8 @@ const Home = () => {
           ))}
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
-
   );
 };
 
