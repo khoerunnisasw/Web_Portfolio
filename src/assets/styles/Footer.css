@@ -1,0 +1,63 @@
+/* Root & Layout Base */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Page Wrapper */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+/* Footer */
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 16px 20px;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Footer Paragraph */
+.footer p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .footer {
+    font-size: 13.5px;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+  .footer {
+    font-size: 13px;
+    padding: 12px 12px;
+  }
+}
